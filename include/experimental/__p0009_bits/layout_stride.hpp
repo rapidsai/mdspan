@@ -315,7 +315,7 @@ struct layout_stride {
         constexpr auto removed_index_sentinel = static_cast<size_t>(-1);
         *next_idx_iter = removed_index_sentinel;
         int found_count = 1;
-        while (found_count != Extents::rank()) {
+        while (found_count != static_cast<decltype(found_count)>(Extents::rank())) {
           next_idx_iter = std::find_if(
             rem.begin(), rem.end(),
             [&](size_t i) {
@@ -330,7 +330,7 @@ struct layout_stride {
             prev_stride_times_prev_extent = stride(*next_idx_iter) * this->extents().extent(*next_idx_iter);
           } else { break; }
         }
-        return found_count == Extents::rank();
+        return found_count == static_cast<decltype(found_count)>(Extents::rank());
       }
       return false;
 #endif
